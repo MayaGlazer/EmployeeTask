@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Employee</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Employee Form</h1>
+        <hr>
+        <form action="http://localhost/class40/controllers/crudall" method="POST">
+            <label>ID: <input name="empid" type="number"></label> 
+            <label>Employee Name: <input name="empname" type="text"></label> 
+            <label>Hire Date: <input name="emphiredate" type="date"></label> 
+            <br>
+            <input type="submit" name="action" value="Get">
+            <input type="submit" name="action" value="Insert">
+            <input type="submit" name="action" value="Update">
+            <input type="submit" name="action" value="Delete">
+
+            <button onclick="GetAllEmployees()">Get All</button>
+        </form>
+        <div id="content">
+            
+        </div>
+    </body>
+</html>

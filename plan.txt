@@ -1,0 +1,154 @@
+1. create table (create DB)
+2. create view (html + css)
+3. create logic side
+
+------------------------------------------------------------------------------------------------
+                                1. create database and tables:
+------------------------------------------------------------------------------------------------
+
+
+a. DB:
+CREATE DATABASE project;
+use project;
+
+b. table:
+create table employees:
+    1) id int
+    2) employee name varchar(50)
+    3) employee hire date varchar(50)
+
+CREATE TABLE `Employees`.`phpmysqlproject` (
+    `EmpID` INT(11) NOT NULL,
+    `EmpName` VARCHAR(50) NOT NULL,
+    `EmpHireDate` DATE NOT NULL,
+    PRIMARY KEY (`EmpID`),
+  UNIQUE INDEX `EmpID_UNIQUE` (`EmpID` ASC));
+
+
+c. statements:
+
+insert: INSERT INTO `project`.`employees` (`EmpID`,`EmpName`,`EmpHireDate`) VALUES (2,'my name','2015-02-12');
+update: UPDATE `project`.`employees` SET `EmpName` = 'new name', `EmpHireDate` = '2018-04-12' WHERE `EmpID` = 1;
+delete: DELETE FROM `project`.`employees` WHERE EmpID = 2;
+select all: SELECT * FROM `project`.`employees`;
+select specific: SELECT * FROM `project`.`employees` WHERE EmpID = 1;
+
+public function ToHTML_Table() {
+    $table = "<table border='1'>";
+
+    $table .= $this->ToHTML_TableHead($this->result[0];
+    foreach ($this->result as $row) {
+        $table .= $this->ToHtml_TableRow($row);
+    }
+    $table .= "</table>";
+    return $table;
+}
+
+private function ToHTML_TableHead($row) {
+    $th = "<tr>";
+    foreach ($row as $colname => $value) {
+         $th .= "<th>$colname</th>";
+    }
+    $th .= "</tr>";
+    return $th;
+}
+
+private function ToHTML_TableRow($row) {
+    $tr = "<tr>;
+    foreach ($row as $colname => $value) {
+        $tr .= "<td>$value</td>";
+    }
+    $tr .= "</tr>"
+    return $tr;
+}
+
+
+
+
+------------------------------------------------------------------------------------------------
+                                    2. create view:
+------------------------------------------------------------------------------------------------
+
+*   Sometimes the design will be provided by some UX/UI company.
+So we'd probably won't even need to deal with the design much, but will adjust it if 
+needed.
+
+a. HTML basic file
+    Create a raw HTML document that in the future will be used as a view for the project.
+    At the beginning we would keep it simple and won't build a design or a complicated HTML structure.
+    This raw page's purpose is now to help us understand if and how things work or don't work between
+    our DB and the outer world.
+
+    For example, here we would start with a simple form to present and edit information in
+    the DB.
+
+b. .htacces file
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ index.php?uri=$1 
+
+    The .htaccess file is the file that creates the connection between the client and the server.
+    What's next on plan is the infrastructure of the website's access to the php files: index.php.
+
+    The index.html file will contain the connection initializing, just like the one we wrote in
+    the index of PRE_PROJECT.
+    Moreover, we must use the "bootstrap library" we've created in the past.
+
+    Next thing is to create a new controller: employees.php
+    Also we should set _parseParams()'s default to 'Employees/index'.
+
+Now we can begin building the view:
+
+We would need to build:
+    - Header
+    - Footer
+
+
+------------------------------------------------------------------------------------------------
+                                    3. create logics aka server side:
+------------------------------------------------------------------------------------------------
+
+
+Now that we have a prepared complete basic template to our website, we can begin create the
+website's logic side. Meaning we could actually ask the server for information.
+For this we need to have in general:
+    1. controllers
+    2. libraries
+    3. update the index.php file
+
+**********   note to self   ********************************************************************
+            I still need to (before anything else) :
+                     - Build controllers/controller.php
+                     - Build Models/Model.php
+                     - Build Views/view.php (Contains the method render() that
+                       attaches all the header, middle and footer html files.
+                     - Update libraries/bootstrap.php
+
+************************************************************************************************
+
+# the form we build should POST to Employees (controller) and to a specific action (action).
+On client side:
+    With onsubmit event we can change the action dynamically.
+    We can also validate.
+    We can also return FALSE so the action exits and the page won't refresh. (because a request
+        has been submitted).
+
+
+For example:
+<form action="Employees/ABC" method="POST" onsubmit="check()"></form>
+check() = js function
+
+else:
+*CRUD = create retrive update delete
+
+<form action="Employees/CRUDALL" method="POST" onsubmit="check()"></form>
+CRUDALL = action that would analyse what is the right function that should be performed now.
+
+In the action of the form we should write down a specific address to the root of the project in the localhost to action:
+
+http://localhost:8080/class40/controllers/crudall
